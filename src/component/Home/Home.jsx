@@ -10,12 +10,12 @@ const Home = () => {
 
                 <div className='flex items-center justify-center'>
                     <div>
-                        <h1 className='text-2xl font-extrabold my-5 text-purple-700'>A man’s feet should be planted in his country, but his eyes should survey the world</h1>
+                        <h1 className='text-2xl font-extrabold my-5 text-purple-700'>A man’s feet should be planted in his country, but his eyes should survey the world.</h1>
 
                         <p className='text-slate-700 font-medium mb-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, minima. Assumenda error debitis explicabo officia? Fugiat, deleniti quibusdam! Velit, fugit sed expedita, animi provident totam maiores eveniet neque pariatur at nam aut!</p>
 
                         <Link to="/login">
-                        <button className='bg-purple-600 px-14 py-3 rounded-lg font-medium text-white hover:bg-purple-400'>Get Started</button>
+                        <button className='bg-purple-600 px-14 py-3 rounded-lg font-medium text-white hover:bg-purple-400 mt-3'>Get Started</button>
                         </Link>
                     </div>
 
