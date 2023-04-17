@@ -8,7 +8,7 @@ import github from '../../assets/icon/github.png';
 import app from '../../firebase/firebase.init';
 
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
-import { GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -136,6 +136,32 @@ const Login = () => {
             })
     }
 
+    const handleFacebookLogIn = () => {
+        const facebookProvider = new FacebookAuthProvider();
+
+        signInWithPopup(auth, facebookProvider)
+            .then(res => {
+                const loggedUser = res.user;
+                console.log(loggedUser);
+                toast.success('Login successful!', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                setGetError('');
+
+            })
+            .catch(error => {
+                console.log(error.message);
+                setGetError(error.message);
+            })
+    }
+
     const handleTwitterLogIn = () => {
         const twitterProvider = new TwitterAuthProvider();
 
@@ -193,7 +219,7 @@ const Login = () => {
                                     <p className='text-lg font-bold text-purple-400 mb-4 text-center'>Or login with:</p>
                                     <div className='flex items-center justify-evenly mt-6'>
                                         <button onClick={handleGoogleLogIn}><img src={google} alt="" /></button>
-                                        <button><img src={facebook} alt="" /></button>
+                                        <button onClick={handleFacebookLogIn}><img src={facebook} alt="" /></button>
                                         <button onClick={handleTwitterLogIn}><img src={twitter} alt="" /></button>
                                         <button onClick={handleGithubLogIn}><img src={github} alt="" /></button>
                                     </div>
