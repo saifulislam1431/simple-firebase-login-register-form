@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
-import { createUserWithEmailAndPassword, getAuth} from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, sendPasswordResetEmail} from "firebase/auth";
 import { toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -48,10 +48,12 @@ const Register = () => {
             setGetError('Your password must have minimum eight in length');
             return;
         }
+        
 
         createUserWithEmailAndPassword(auth ,email ,password)
         .then(res=>{
             const registeredUser = res.user;
+            verifyEmail(res.user);
             console.log(registeredUser);
             toast.success('You successfully registered in this site!', {
                 position: "top-center",
@@ -63,11 +65,32 @@ const Register = () => {
                 progress: undefined,
                 theme: "light",
             });
+            
             setGetError('')
+            e.target.reset();
         })
         .catch(error=>{
             setGetError(error.message);
-        })
+        });
+
+
+        const verifyEmail = (user) =>{
+            sendEmailVerification(user)
+            .then(()=>{
+                toast.success('Please check your email.', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            })
+        }
+
+        
 
         e.target.reset();
 
